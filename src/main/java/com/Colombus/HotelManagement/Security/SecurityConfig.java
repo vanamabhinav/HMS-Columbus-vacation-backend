@@ -89,6 +89,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/register", "/auth/validate", "/auth/check-user/**").permitAll()
+                        // Allow health check endpoints without authentication
+                        .requestMatchers("/api/health", "/actuator/health/**", "/actuator/info").permitAll()
                         .requestMatchers("/auth/pending-approvals").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/auth/approve-user/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/auth/reject-user/**").hasAuthority("ROLE_ADMIN")
@@ -116,11 +118,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"));
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

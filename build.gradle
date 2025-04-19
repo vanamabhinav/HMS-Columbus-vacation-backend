@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Web support for REST APIs
 	implementation 'org.springframework.boot:spring-boot-starter-security' // For security (JWT, etc.)
 	implementation 'org.springframework.boot:spring-boot-starter-validation' // For validation annotations
+	implementation 'org.springframework.boot:spring-boot-starter-actuator' // For health checks and monitoring
 
 	// JWT Libraries for token handling
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
